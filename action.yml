@@ -14,7 +14,7 @@ runs:
         run: |
           # Checkout existing branch if it exists, otherwise create (?)
           git fetch
-          if ! git branch gh-pages origin/gh-pages then
+          if ! git branch gh-pages origin/gh-pages; then
             git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP
             git branch gh-pages gh-gap/gh-pages --no-track
             git worktree add gh-pages gh-pages
