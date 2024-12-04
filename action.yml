@@ -27,9 +27,8 @@ runs:
         shell: bash
         run: |
           mkdir $HOME/ReleaseTools
-          wget https://github.com/gap-system/ReleaseTools/archive/refs/heads/master.tar.gz -O $HOME/ReleaseTools
-          tar -xzf $HOME/ReleaseTools/master.tar.gz -C $HOME/ReleaseTools --strip-components=1
-          rm $HOME/ReleaseTools/master.tar.gz
+          wget https://github.com/gap-system/ReleaseTools/archive/refs/heads/master.tar.gz -O $HOME/ReleaseTools/ReleaseTools.tar.gz
+          tar -xzf $HOME/ReleaseTools/ReleaseTools.tar.gz -C $HOME/ReleaseTools --strip-components=1
       - name: "Release"
         shell: bash
         run: |
