@@ -25,7 +25,6 @@ runs:
             git branch gh-pages gh-gap/gh-pages --no-track
             git worktree add gh-pages gh-pages
             cd gh-pages
-            git commit -m "Setup gh-pages based on GitHubPagesForGAP"
             git push --set-upstream origin gh-pages
             cd ../
           else 
