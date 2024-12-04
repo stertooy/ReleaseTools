@@ -14,22 +14,17 @@ runs:
         run: |
           # Checkout existing branch if it exists, otherwise create (?)
           git fetch
-          git branch gh-pages origin/gh-pages || git branch gh-pages
-          git worktree add gh-pages gh-pages
-          # Ensure that gh-pages branch will be pushed to if it does not exist
-          git config push.autoSetupRemote true
-          # Overwrite with newest GithubPagesForGAP (?)
-          # Remove everything inside gh-pages folder
-          rm -rf gh-pages/*
-          wget https://github.com/gap-system/GitHubPagesForGAP/archive/refs/heads/gh-pages.tar.gz
-          tar -xzf gh-pages.tar.gz -C gh-pages --strip-components=1
-          rm gh-pages.tar.gz
-          #cd gh-pages
-          #cp -f ../PackageInfo.g ../README* .
-          #cp -f ../doc/*.{css,html,js,txt} doc/
-          #git add -A
-          #git commit -m "Update gh-pages to latest version"
-          #cd ../
+          if ! git branch gh-pages origin/gh-pages then
+            git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP
+            git branch gh-pages gh-gap/gh-pages --no-track
+            git worktree add gh-pages gh-pages
+            cd gh-pages
+            git commit -m "Setup gh-pages based on GitHubPagesForGAP"
+            git push --set-upstream origin gh-pages
+            cd ../
+          else 
+            git worktree add gh-pages gh-pages
+          fi
       - name: "Setup Releasetools"
         shell: bash
         run: |
@@ -40,4 +35,3 @@ runs:
         shell: bash
         run: |
           $HOME/ReleaseTools/release-gap-package
-          
