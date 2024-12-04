@@ -9,11 +9,16 @@ runs:
         run: |
           sudo apt update
           sudo apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+      - name: "Setup git user"
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config github.token "${{ env.TOKEN }}"
       - name: "Setup GithubPagesForGAP"
         shell: bash
         run: |
-          # Checkout existing branch if it exists, otherwise create (?)
-          git config github.token ${{ env.TOKEN }}
+          # Checkout existing branch if it exists, otherwise create (?), and add to worktree
           git fetch
           if ! git branch gh-pages origin/gh-pages; then
             git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP
