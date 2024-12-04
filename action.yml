@@ -4,6 +4,11 @@ description: 'blah blah yada yada'
 runs:
   using: "composite"
   steps:
+      - name: "Install TeXLive packages"
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
       - name: "Setup GithubPagesForGAP"
         shell: bash
         run: |
