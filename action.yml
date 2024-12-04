@@ -1,6 +1,6 @@
 name: 'Create GAP release'
 description: 'blah blah yada yada'
-
+    
 runs:
   using: "composite"
   steps:
@@ -13,6 +13,7 @@ runs:
         shell: bash
         run: |
           # Checkout existing branch if it exists, otherwise create (?)
+          git config github.token ${{ env.TOKEN }}
           git fetch
           if ! git branch gh-pages origin/gh-pages; then
             git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP
