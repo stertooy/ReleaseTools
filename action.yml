@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
       - name: "Setup GithubPagesForGAP"
+        shell: bash
         run: |
           # Checkout existing branch if it exists, otherwise create (?)
           git fetch
@@ -23,12 +24,14 @@ runs:
           #git commit -m "Update gh-pages to latest version"
           #cd ../
       - name: "Setup Releasetools"
+        shell: bash
         run: |
           mkdir $HOME/ReleaseTools
           wget https://github.com/gap-system/ReleaseTools/archive/refs/heads/master.tar.gz -O $HOME/ReleaseTools
           tar -xzf $HOME/ReleaseTools/master.tar.gz -C $HOME/ReleaseTools --strip-components=1
           rm $HOME/ReleaseTools/master.tar.gz
       - name: "Release"
+        shell: bash
         run: |
           $HOME/ReleaseTools/release-gap-package
           
