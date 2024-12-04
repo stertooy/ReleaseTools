@@ -1,0 +1,34 @@
+name: 'Create GAP release'
+description: 'blah blah yada yada'
+
+runs:
+  using: "composite"
+  steps:
+      - name: "Setup GithubPagesForGAP"
+        run: |
+          # Checkout existing branch if it exists, otherwise create (?)
+          git fetch
+          git branch gh-pages origin/gh-pages || git branch gh-pages
+          git worktree add gh-pages gh-pages
+          # Overwrite with newest GithubPagesForGAP (?)
+          # Remove everything inside gh-pages folder
+          rm -rf gh-pages/*
+          wget https://github.com/gap-system/GitHubPagesForGAP/archive/refs/heads/gh-pages.tar.gz
+          tar -xzf gh-pages.tar.gz -C gh-pages --strip-components=1
+          rm gh-pages.tar.gz
+          #cd gh-pages
+          #cp -f ../PackageInfo.g ../README* .
+          #cp -f ../doc/*.{css,html,js,txt} doc/
+          #git add -A
+          #git commit -m "Update gh-pages to latest version"
+          #cd ../
+      - name: "Setup Releasetools"
+        run: |
+          mkdir $HOME/ReleaseTools
+          wget https://github.com/gap-system/ReleaseTools/archive/refs/heads/master.tar.gz -O $HOME/ReleaseTools
+          tar -xzf $HOME/ReleaseTools/master.tar.gz -C $HOME/ReleaseTools --strip-components=1
+          rm $HOME/ReleaseTools/master.tar.gz
+      - name: "Release"
+        run: |
+          $HOME/ReleaseTools/release-gap-package
+          
