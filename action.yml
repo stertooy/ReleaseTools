@@ -1,0 +1,34 @@
+name: 'Create GAP release'
+description: 'blah blah yada yada'
+
+runs:
+  using: "composite"
+  steps:
+      - name: "Install python if necessary(?)"
+        run: |
+          apt update
+          apt upgrade -y
+          apt install python3 -y
+      - name: "Setup GithubPagesForGAP"
+        run: |
+          # Checkout existing branch if it exists, otherwise create (?)
+          git worktree add gh-pages gh-pages
+          cd gh-pages
+          # Overwrite with newest GithubPagesForGAP (?)
+          wget https://github.com/gap-system/GitHubPagesForGAP/archive/refs/heads/gh-pages.tar.gz
+          tar -xzf gh-pages.tar.gz
+          rm gh-pages.tar.gz
+          git add .
+          # No need to copy newest README, PackageInfo & Doc, ReleaseTools will do this (?)
+      - name: "Setup Releasetools"
+        run: |
+          # Do this in different folder...
+          wget https://github.com/gap-system/ReleaseTools/archive/refs/heads/master.tar.gz
+          tar -xzf master.tar.gz
+          rm master.tar.gz
+
+      - name: "Release"
+        run: |
+          # Back in package folder
+          PATH/TO/ReleaseTools/release-gap-package
+          
