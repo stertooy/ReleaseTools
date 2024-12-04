@@ -16,6 +16,8 @@ runs:
           git fetch
           git branch gh-pages origin/gh-pages || git branch gh-pages
           git worktree add gh-pages gh-pages
+          # Ensure that gh-pages branch will be pushed to if it does not exist
+          git config push.autoSetupRemote true
           # Overwrite with newest GithubPagesForGAP (?)
           # Remove everything inside gh-pages folder
           rm -rf gh-pages/*
